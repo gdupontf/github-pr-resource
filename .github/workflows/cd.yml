@@ -2,6 +2,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
   pull_request_target:
     branches:
       - main
@@ -38,7 +40,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name != 'pull_request_target' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           provenance: true
